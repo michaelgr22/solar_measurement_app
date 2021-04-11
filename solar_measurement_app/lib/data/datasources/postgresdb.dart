@@ -15,11 +15,9 @@ class PostgresDB {
     this._database,
     this._username,
     this._password,
-  ) {
-    connect();
-  }
+  );
 
-  void connect() async {
+  Future<void> connect() async {
     _connection = PostgreSQLConnection(_ip, _port, _database,
         username: _username, password: _password);
     await _connection.open();

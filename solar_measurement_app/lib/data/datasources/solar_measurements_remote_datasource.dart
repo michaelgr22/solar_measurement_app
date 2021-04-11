@@ -23,6 +23,7 @@ from solarpanels_2_resistor220_opencircuit
 order by created_on desc
 limit 1""";
 
+    await measurementsdb.connect();
     List<List<dynamic>> result = await measurementsdb.query(postgresquery);
     var row = result[0];
 

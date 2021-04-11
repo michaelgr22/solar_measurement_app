@@ -10,8 +10,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: BlocProvider(
-      create: (context) =>
-          LatestSolarMeasurementCubit(SolarMeasurementsRemoteDataSoruceImpl()),
+      create: (_) =>
+          LatestSolarMeasurementCubit(SolarMeasurementsRemoteDataSoruceImpl())
+            ..getLatestSolarMeasurement(),
       child: HomePage(),
     ));
   }
