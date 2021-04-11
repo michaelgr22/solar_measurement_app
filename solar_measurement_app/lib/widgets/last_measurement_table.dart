@@ -10,8 +10,9 @@ class LastMeasurementTable extends StatelessWidget {
       double opencircuitvoltage;
       double resistorvoltage;
       DateTime createdon;
-
-      if (state is LatestSolarMeasurementInitial) {
+      if (state is LatestSolarMeasurementInitial ||
+          state is LatestSolarMeasurementLoading) {
+        return LoadingTableProgressIndicator();
       } else if (state is LatestSolarMeasurementLoaded) {
         opencircuitvoltage = state.latestmeasurement.opencircuitvoltage;
         resistorvoltage = state.latestmeasurement.resistorvoltage;
@@ -101,6 +102,15 @@ class TableCellHeaderContainer extends StatelessWidget {
         style: TextStyle(fontSize: 14),
       ),
       color: Colors.grey,
+    );
+  }
+}
+
+class LoadingTableProgressIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CircularProgressIndicator(
+      backgroundColor: Colors.orange,
     );
   }
 }

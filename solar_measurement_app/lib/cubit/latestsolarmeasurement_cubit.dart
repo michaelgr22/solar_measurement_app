@@ -12,6 +12,7 @@ class LatestSolarMeasurementCubit extends Cubit<LatestSolarMeasurementState> {
       : super(LatestSolarMeasurementInitial());
 
   Future<void> getLatestSolarMeasurement() async {
+    emit(LatestSolarMeasurementLoading());
     final latestmeasurement =
         await _solarMeasurementsRemoteDataSoruce.getLatestMeasurement();
     emit(LatestSolarMeasurementLoaded(latestmeasurement));

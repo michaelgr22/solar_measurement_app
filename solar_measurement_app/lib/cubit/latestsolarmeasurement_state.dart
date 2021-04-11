@@ -13,3 +13,7 @@ class LatestSolarMeasurementLoaded extends LatestSolarMeasurementState {
   final SolarMeasurementModel latestmeasurement;
   const LatestSolarMeasurementLoaded(this.latestmeasurement);
 }
+
+class LatestSolarMeasurementLoading extends LatestSolarMeasurementState {
+  const LatestSolarMeasurementLoading();
+}
