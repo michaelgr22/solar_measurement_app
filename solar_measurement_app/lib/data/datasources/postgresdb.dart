@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import '.datasources_credentails.dart';
 
 class PostgresDB {
   final String _ip;
@@ -10,12 +11,7 @@ class PostgresDB {
   var _connection;
 
   PostgresDB(
-    this._ip,
-    this._port,
-    this._database,
-    this._username,
-    this._password,
-  );
+      this._ip, this._port, this._database, this._username, this._password);
 
   Future<void> connect() async {
     _connection = PostgreSQLConnection(_ip, _port, _database,
@@ -30,4 +26,14 @@ class PostgresDB {
   Future<dynamic> query(String query) async {
     return await _connection.query(query);
   }
+}
+
+class MeasurementsDB extends PostgresDB {
+  MeasurementsDB()
+      : super(
+            PostgresDBMeasurementsCredentails.ip,
+            PostgresDBMeasurementsCredentails.port,
+            PostgresDBMeasurementsCredentails.database,
+            PostgresDBMeasurementsCredentails.username,
+            PostgresDBMeasurementsCredentails.password);
 }

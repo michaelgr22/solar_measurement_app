@@ -1,10 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:postgres/postgres.dart';
 import 'package:solar_measurement_app/core/error/exceptions.dart';
-import 'package:solar_measurement_app/data/datasources/postgresdb.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
-import '.datasources_credentails.dart';
 
 abstract class SolarMeasurementsRemoteDataSoruce {
   Future<SolarMeasurementModel> getLatestMeasurement();
@@ -12,13 +11,9 @@ abstract class SolarMeasurementsRemoteDataSoruce {
 
 class SolarMeasurementsRemoteDataSoruceImpl
     implements SolarMeasurementsRemoteDataSoruce {
-  final measurementsdb = PostgresDB(
-    PostgresDBMeasurementsCredentails.ip,
-    PostgresDBMeasurementsCredentails.port,
-    PostgresDBMeasurementsCredentails.database,
-    PostgresDBMeasurementsCredentails.username,
-    PostgresDBMeasurementsCredentails.password,
-  );
+  final database;
+
+  SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
 
   Future<SolarMeasurementModel> getLatestMeasurement() async {
     final postgresquery =
@@ -28,9 +23,9 @@ order by created_on desc
 limit 1""";
 
     try {
-      await measurementsdb.connect();
-      List<List<dynamic>> result = await measurementsdb.query(postgresquery);
-      await measurementsdb.close();
+      await database.connect();
+      List<List<dynamic>> result = await database.query(postgresquery);
+      await database.close();
       var row = result[0];
       int id = row[0];
       double resistorvoltage = row[1];
