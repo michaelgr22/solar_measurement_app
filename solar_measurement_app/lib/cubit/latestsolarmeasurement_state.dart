@@ -17,3 +17,8 @@ class LatestSolarMeasurementLoaded extends LatestSolarMeasurementState {
 class LatestSolarMeasurementLoading extends LatestSolarMeasurementState {
   const LatestSolarMeasurementLoading();
 }
+
+class LatestSolarMeasurementError extends LatestSolarMeasurementState {
+  final String message;
+  const LatestSolarMeasurementError(this.message);
+}

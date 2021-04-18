@@ -19,8 +19,12 @@ class PostgresDB {
 
   Future<void> connect() async {
     _connection = PostgreSQLConnection(_ip, _port, _database,
-        username: _username, password: _password);
+        username: _username, password: _password, timeoutInSeconds: 5);
     await _connection.open();
+  }
+
+  Future<void> close() async {
+    await _connection.close();
   }
 
   Future<dynamic> query(String query) async {

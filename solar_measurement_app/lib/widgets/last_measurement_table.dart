@@ -13,6 +13,8 @@ class LastMeasurementTable extends StatelessWidget {
       if (state is LatestSolarMeasurementInitial ||
           state is LatestSolarMeasurementLoading) {
         return LoadingTableProgressIndicator();
+      } else if (state is LatestSolarMeasurementError) {
+        return Text(state.message);
       } else if (state is LatestSolarMeasurementLoaded) {
         opencircuitvoltage = state.latestmeasurement.opencircuitvoltage;
         resistorvoltage = state.latestmeasurement.resistorvoltage;

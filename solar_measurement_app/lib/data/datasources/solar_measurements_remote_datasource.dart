@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:postgres/postgres.dart';
+import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/datasources/postgresdb.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 import '.datasources_credentails.dart';
@@ -23,19 +27,25 @@ from solarpanels_2_resistor220_opencircuit
 order by created_on desc
 limit 1""";
 
-    await measurementsdb.connect();
-    List<List<dynamic>> result = await measurementsdb.query(postgresquery);
-    var row = result[0];
+    try {
+      await measurementsdb.connect();
+      List<List<dynamic>> result = await measurementsdb.query(postgresquery);
+      await measurementsdb.close();
+      var row = result[0];
+      int id = row[0];
+      double resistorvoltage = row[1];
+      double opencircuitvoltage = row[2];
+      DateTime createdon = DateTime.parse(row[3].toString().split('.')[0]);
 
-    int id = row[0];
-    double resistorvoltage = row[1];
-    double opencircuitvoltage = row[2];
-    DateTime createdon = DateTime.parse(row[3].toString().split('.')[0]);
-
-    return SolarMeasurementModel(
-        id: id,
-        resistorvoltage: resistorvoltage,
-        opencircuitvoltage: opencircuitvoltage,
-        createdon: createdon);
+      return SolarMeasurementModel(
+          id: id,
+          resistorvoltage: resistorvoltage,
+          opencircuitvoltage: opencircuitvoltage,
+          createdon: createdon);
+    } on PostgreSQLException {
+      throw NetworkException();
+    } on TimeoutException {
+      throw NetworkException();
+    }
   }
 }
