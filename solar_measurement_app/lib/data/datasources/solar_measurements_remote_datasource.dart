@@ -1,7 +1,5 @@
-import 'dart:async';
+import 'package:flutter/material.dart';
 
-import 'package:flutter/cupertino.dart';
-import 'package:postgres/postgres.dart';
 import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
@@ -37,9 +35,7 @@ limit 1""";
           resistorvoltage: resistorvoltage,
           opencircuitvoltage: opencircuitvoltage,
           createdon: createdon);
-    } on PostgreSQLException {
-      throw NetworkException();
-    } on TimeoutException {
+    } on Exception {
       throw NetworkException();
     }
   }

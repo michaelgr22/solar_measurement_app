@@ -13,6 +13,7 @@ class App extends StatelessWidget {
     final MeasurementsDB measurementsDB = MeasurementsDB();
     final SolarMeasurementsRemoteDataSoruce remoteDataSoruce =
         SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
+
     return MaterialApp(
         home: BlocProvider(
       create: (_) => LatestSolarMeasurementCubit(
