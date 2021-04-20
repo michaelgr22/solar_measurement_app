@@ -12,12 +12,21 @@ class HomePage extends StatelessWidget {
         title: Text("Solar Measurement"),
         backgroundColor: Color.fromRGBO(204, 154, 16, 1),
       ),
-      body: Column(
-        children: [
-          LastMeasurementText(),
-          LastMeasurementTable(),
-        ],
-      ),
+      body: RefreshIndicator(
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              Column(
+                children: [
+                  LastMeasurementText(),
+                  LastMeasurementTable(),
+                ],
+              ),
+            ],
+          ),
+          onRefresh: () => context
+              .read<LatestSolarMeasurementCubit>()
+              .getLatestSolarMeasurement()),
       floatingActionButton: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.end,
