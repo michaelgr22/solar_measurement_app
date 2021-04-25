@@ -23,6 +23,20 @@ void main() {
     expect(solarmeasurmentmodel, isA<SolarMeasurementModel>());
   });
 
+  test(
+      'should return List of SolarMeasurementModels when getLastWeeksMeasurements is called',
+      () async {
+    //arrange
+    final measurementsDB = MeasurementsDB();
+    final remoteDataSoruce =
+        SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
+    //act
+    final solarmeasurmentmodellist =
+        await remoteDataSoruce.getLastWeeksMeasurements();
+    //assert
+    expect(solarmeasurmentmodellist, isA<List<SolarMeasurementModel>>());
+  });
+
   test('should return NetworkException when loading Data from Postgres fails',
       () async {
     //arrange

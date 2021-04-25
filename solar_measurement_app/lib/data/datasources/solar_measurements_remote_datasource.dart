@@ -5,6 +5,7 @@ import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 abstract class SolarMeasurementsRemoteDataSoruce {
   Future<SolarMeasurementModel> getLatestMeasurement();
+  Future<List<SolarMeasurementModel>> getLastWeeksMeasurements();
 }
 
 class SolarMeasurementsRemoteDataSoruceImpl
@@ -13,30 +14,57 @@ class SolarMeasurementsRemoteDataSoruceImpl
 
   SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
 
+  Future<List<SolarMeasurementModel>> getLastWeeksMeasurements() async {
+    final query =
+        """SELECT id, cast(resistor_voltage as float), cast(opencircuit_voltage as float), created_on
+FROM
+	solarpanels_2_resistor220_opencircuit
+WHERE
+	created_on BETWEEN '2021-04-08 00:00:00' AND '2021-04-12 23:59:59'
+order by created_on desc;""";
+
+    List<SolarMeasurementModel> models = [];
+
+    try {
+      List<List<dynamic>> result = await queryDatabase(query);
+      result.forEach((row) {
+        models.add(parseRowToSolarMeasurementModel(row));
+      });
+      return models;
+    } on Exception {
+      throw NetworkException();
+    }
+  } //TODO: correct time
+
   Future<SolarMeasurementModel> getLatestMeasurement() async {
-    final postgresquery =
+    final query =
         """select id, cast(resistor_voltage as float), cast(opencircuit_voltage as float),created_on 
 from solarpanels_2_resistor220_opencircuit
 order by created_on desc
 limit 1""";
 
     try {
-      await database.connect();
-      List<List<dynamic>> result = await database.query(postgresquery);
-      await database.close();
+      List<List<dynamic>> result = await queryDatabase(query);
       var row = result[0];
-      int id = row[0];
-      double resistorvoltage = row[1];
-      double opencircuitvoltage = row[2];
-      DateTime createdon = DateTime.parse(row[3].toString().split('.')[0]);
-
-      return SolarMeasurementModel(
-          id: id,
-          resistorvoltage: resistorvoltage,
-          opencircuitvoltage: opencircuitvoltage,
-          createdon: createdon);
+      return parseRowToSolarMeasurementModel(row);
     } on Exception {
       throw NetworkException();
     }
+  }
+
+  SolarMeasurementModel parseRowToSolarMeasurementModel(List<dynamic> row) {
+    return SolarMeasurementModel(
+      id: row[0],
+      resistorvoltage: row[1],
+      opencircuitvoltage: row[2],
+      createdon: DateTime.parse(row[3].toString().split('.')[0]),
+    );
+  }
+
+  Future<List<List<dynamic>>> queryDatabase(query) async {
+    await database.connect();
+    List<List<dynamic>> result = await database.query(query);
+    await database.close();
+    return result;
   }
 }
