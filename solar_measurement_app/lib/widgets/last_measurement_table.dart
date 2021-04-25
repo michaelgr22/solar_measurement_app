@@ -1,77 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_measurement_app/cubit/latestsolarmeasurement_cubit.dart';
 
 class LastMeasurementTable extends StatelessWidget {
+  final state;
+
+  LastMeasurementTable({@required this.state});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LatestSolarMeasurementCubit,
-        LatestSolarMeasurementState>(builder: (context, state) {
-      double opencircuitvoltage;
-      double resistorvoltage;
-      DateTime createdon;
-      if (state is LatestSolarMeasurementInitial ||
-          state is LatestSolarMeasurementLoading) {
-        return LoadingTableProgressIndicator();
-      } else if (state is LatestSolarMeasurementError) {
-        return Text(state.message);
-      } else if (state is LatestSolarMeasurementLoaded) {
-        opencircuitvoltage = state.latestmeasurement.opencircuitvoltage;
-        resistorvoltage = state.latestmeasurement.resistorvoltage;
-        createdon = state.latestmeasurement.createdon;
-      }
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-        child: Table(
-          border: TableBorder.all(),
-          columnWidths: const <int, TableColumnWidth>{
-            0: FlexColumnWidth(),
-            1: FlexColumnWidth(),
-            2: FlexColumnWidth(),
-          },
-          children: [
-            TableRow(
-              children: [
-                TableCell(
-                  child: TableCellHeaderContainer(
-                    "Zeit",
-                  ),
+    double opencircuitvoltage;
+    double resistorvoltage;
+    DateTime createdon;
+
+    if (state is LatestSolarMeasurementInitial ||
+        state is LatestSolarMeasurementLoading) {
+      return LoadingTableProgressIndicator();
+    } else if (state is LatestSolarMeasurementError) {
+      return Text(state.message);
+    } else if (state is LatestSolarMeasurementLoaded) {
+      opencircuitvoltage = state.latestmeasurement.opencircuitvoltage;
+      resistorvoltage = state.latestmeasurement.resistorvoltage;
+      createdon = state.latestmeasurement.createdon;
+    }
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+      child: Table(
+        border: TableBorder.all(),
+        columnWidths: const <int, TableColumnWidth>{
+          0: FlexColumnWidth(),
+          1: FlexColumnWidth(),
+          2: FlexColumnWidth(),
+        },
+        children: [
+          TableRow(
+            children: [
+              TableCell(
+                child: TableCellHeaderContainer(
+                  "Zeit",
                 ),
-                TableCell(
-                  child: TableCellHeaderContainer(
-                    "Uo [V]",
-                  ),
+              ),
+              TableCell(
+                child: TableCellHeaderContainer(
+                  "Uo [V]",
                 ),
-                TableCell(
-                  child: TableCellHeaderContainer(
-                    "Ur [V]",
-                  ),
+              ),
+              TableCell(
+                child: TableCellHeaderContainer(
+                  "Ur [V]",
                 ),
-              ],
-            ),
-            TableRow(
-              children: [
-                TableCell(
-                  child: TableCellContentContainer(
-                    createdon.toString(),
-                  ),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              TableCell(
+                child: TableCellContentContainer(
+                  createdon.toString(),
                 ),
-                TableCell(
-                  child: TableCellContentContainer(
-                    opencircuitvoltage.toString(),
-                  ),
+              ),
+              TableCell(
+                child: TableCellContentContainer(
+                  opencircuitvoltage.toString(),
                 ),
-                TableCell(
-                  child: TableCellContentContainer(
-                    resistorvoltage.toString(),
-                  ),
+              ),
+              TableCell(
+                child: TableCellContentContainer(
+                  resistorvoltage.toString(),
                 ),
-              ],
-            ),
-          ],
-        ),
-      );
-    });
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 

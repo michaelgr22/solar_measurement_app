@@ -32,7 +32,7 @@ void main() {
         SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
     //act
     final solarmeasurmentmodellist =
-        await remoteDataSoruce.getLastWeeksMeasurements();
+        await remoteDataSoruce.getLastFiveDaysMeasurements();
     //assert
     expect(solarmeasurmentmodellist, isA<List<SolarMeasurementModel>>());
   });

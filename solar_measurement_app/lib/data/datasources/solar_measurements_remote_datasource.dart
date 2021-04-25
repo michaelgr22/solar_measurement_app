@@ -5,7 +5,7 @@ import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 abstract class SolarMeasurementsRemoteDataSoruce {
   Future<SolarMeasurementModel> getLatestMeasurement();
-  Future<List<SolarMeasurementModel>> getLastWeeksMeasurements();
+  Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements();
 }
 
 class SolarMeasurementsRemoteDataSoruceImpl
@@ -14,7 +14,7 @@ class SolarMeasurementsRemoteDataSoruceImpl
 
   SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
 
-  Future<List<SolarMeasurementModel>> getLastWeeksMeasurements() async {
+  Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements() async {
     final query =
         """SELECT id, cast(resistor_voltage as float), cast(opencircuit_voltage as float), created_on
 FROM

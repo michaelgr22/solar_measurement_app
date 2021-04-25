@@ -26,6 +26,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   postgres: ^2.3.1
   mockito: ^5.0.4
+  charts_flutter: ^0.10.0
 
 
   # The following adds the Cupertino Icons font to your application.
