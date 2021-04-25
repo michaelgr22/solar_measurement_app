@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
 
 class LastMeasurementTable extends StatelessWidget {
-  final state;
+  final double opencircuitvoltage;
+  final double resistorvoltage;
+  final DateTime createdon;
 
-  LastMeasurementTable({@required this.state});
+  LastMeasurementTable(
+      {@required this.opencircuitvoltage,
+      @required this.resistorvoltage,
+      @required this.createdon});
   @override
   Widget build(BuildContext context) {
-    double opencircuitvoltage;
-    double resistorvoltage;
-    DateTime createdon;
-
-    if (state is LatestSolarMeasurementsInitial ||
-        state is LatestSolarMeasurementsLoading) {
-      return LoadingTableProgressIndicator();
-    } else if (state is LatestSolarMeasurementsError) {
-      return Text(state.message);
-    } else if (state is LatestSolarMeasurementsLoaded) {
-      opencircuitvoltage =
-          state.lastFiveDaysMeasurements.first.opencircuitvoltage;
-      resistorvoltage = state.lastFiveDaysMeasurements.first.resistorvoltage;
-      createdon = state.lastFiveDaysMeasurements.first.createdon;
-    }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       child: Table(
@@ -105,15 +94,6 @@ class TableCellHeaderContainer extends StatelessWidget {
         style: TextStyle(fontSize: 14),
       ),
       color: Colors.grey,
-    );
-  }
-}
-
-class LoadingTableProgressIndicator extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      backgroundColor: Colors.orange,
     );
   }
 }

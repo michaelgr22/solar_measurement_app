@@ -8,7 +8,13 @@ class LastFiveDaysMeasurementsChart extends StatelessWidget {
   LastFiveDaysMeasurementsChart({@required this.data});
   @override
   Widget build(BuildContext context) {
-    return TimeSeriesChart(createSeries());
+    return SizedBox(
+      width: 400,
+      height: 300,
+      child: TimeSeriesChart(
+        createSeries(),
+      ),
+    );
   }
 
   List<Series<SolarMeasurementModel, DateTime>> createSeries() {
