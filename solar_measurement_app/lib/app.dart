@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:solar_measurement_app/cubit/latestsolarmeasurement_cubit.dart';
+import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
 import 'package:solar_measurement_app/data/datasources/postgresdb.dart';
 import 'package:solar_measurement_app/data/datasources/solar_measurements_remote_datasource.dart';
 import 'package:solar_measurement_app/data/repositories/solar_measurements_repository.dart';
@@ -16,9 +16,9 @@ class App extends StatelessWidget {
 
     return MaterialApp(
         home: BlocProvider(
-      create: (_) => LatestSolarMeasurementCubit(
+      create: (_) => LatestSolarMeasurementsCubit(
           SolarMeasurementsRepository(remoteDataSoruce: remoteDataSoruce))
-        ..getLatestSolarMeasurement(),
+        ..getLastFiveDaysMeasurements(),
       child: HomePage(),
     ));
   }

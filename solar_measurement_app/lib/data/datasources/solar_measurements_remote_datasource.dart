@@ -4,7 +4,6 @@ import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 abstract class SolarMeasurementsRemoteDataSoruce {
-  Future<SolarMeasurementModel> getLatestMeasurement();
   Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements();
 }
 
@@ -35,22 +34,6 @@ order by created_on desc;""";
       throw NetworkException();
     }
   } //TODO: correct time
-
-  Future<SolarMeasurementModel> getLatestMeasurement() async {
-    final query =
-        """select id, cast(resistor_voltage as float), cast(opencircuit_voltage as float),created_on 
-from solarpanels_2_resistor220_opencircuit
-order by created_on desc
-limit 1""";
-
-    try {
-      List<List<dynamic>> result = await queryDatabase(query);
-      var row = result[0];
-      return parseRowToSolarMeasurementModel(row);
-    } on Exception {
-      throw NetworkException();
-    }
-  }
 
   SolarMeasurementModel parseRowToSolarMeasurementModel(List<dynamic> row) {
     return SolarMeasurementModel(

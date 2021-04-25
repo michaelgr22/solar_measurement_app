@@ -7,12 +7,6 @@ class SolarMeasurementsRepository {
 
   SolarMeasurementsRepository({@required this.remoteDataSoruce});
 
-  Future<SolarMeasurementModel> getLatestMeasurement() async {
-    final SolarMeasurementModel latestMeasurement =
-        await remoteDataSoruce.getLatestMeasurement();
-    return latestMeasurement;
-  }
-
   Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements() async {
     final List<SolarMeasurementModel> lastFiveDaysMeasurements =
         await remoteDataSoruce.getLastFiveDaysMeasurements();

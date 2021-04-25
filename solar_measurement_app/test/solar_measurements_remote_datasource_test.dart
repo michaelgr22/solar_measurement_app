@@ -11,19 +11,6 @@ class MockMeasurementsDB extends Mock implements MeasurementsDB {}
 
 void main() {
   test(
-      'should return SolarMeasurementModel when getLatestMeasurement is called',
-      () async {
-    //arrange
-    final measurementsDB = MeasurementsDB();
-    final remoteDataSoruce =
-        SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
-    //act
-    final solarmeasurmentmodel = await remoteDataSoruce.getLatestMeasurement();
-    //assert
-    expect(solarmeasurmentmodel, isA<SolarMeasurementModel>());
-  });
-
-  test(
       'should return List of SolarMeasurementModels when getLastWeeksMeasurements is called',
       () async {
     //arrange
@@ -46,7 +33,7 @@ void main() {
     //act
     when(await measurementsDB.connect()).thenThrow(TimeoutException("Test"));
     //assert
-    expect(remoteDataSoruce.getLatestMeasurement(),
+    expect(remoteDataSoruce.getLastFiveDaysMeasurements(),
         throwsA(isA<NetworkException>()));
   });
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solar_measurement_app/cubit/latestsolarmeasurement_cubit.dart';
+import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
 
 class LastMeasurementTable extends StatelessWidget {
   final state;
@@ -11,15 +11,16 @@ class LastMeasurementTable extends StatelessWidget {
     double resistorvoltage;
     DateTime createdon;
 
-    if (state is LatestSolarMeasurementInitial ||
-        state is LatestSolarMeasurementLoading) {
+    if (state is LatestSolarMeasurementsInitial ||
+        state is LatestSolarMeasurementsLoading) {
       return LoadingTableProgressIndicator();
-    } else if (state is LatestSolarMeasurementError) {
+    } else if (state is LatestSolarMeasurementsError) {
       return Text(state.message);
-    } else if (state is LatestSolarMeasurementLoaded) {
-      opencircuitvoltage = state.latestmeasurement.opencircuitvoltage;
-      resistorvoltage = state.latestmeasurement.resistorvoltage;
-      createdon = state.latestmeasurement.createdon;
+    } else if (state is LatestSolarMeasurementsLoaded) {
+      opencircuitvoltage =
+          state.lastFiveDaysMeasurements.first.opencircuitvoltage;
+      resistorvoltage = state.lastFiveDaysMeasurements.first.resistorvoltage;
+      createdon = state.lastFiveDaysMeasurements.first.createdon;
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
