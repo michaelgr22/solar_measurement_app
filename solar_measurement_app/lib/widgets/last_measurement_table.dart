@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 class LastMeasurementTable extends StatelessWidget {
-  final double opencircuitvoltage;
-  final double resistorvoltage;
-  final DateTime createdon;
+  final List<SolarMeasurementModel> data;
 
-  LastMeasurementTable(
-      {@required this.opencircuitvoltage,
-      @required this.resistorvoltage,
-      @required this.createdon});
+  LastMeasurementTable({@required this.data});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,17 +40,17 @@ class LastMeasurementTable extends StatelessWidget {
             children: [
               TableCell(
                 child: TableCellContentContainer(
-                  createdon.toString(),
+                  data.last.createdon.toString(),
                 ),
               ),
               TableCell(
                 child: TableCellContentContainer(
-                  opencircuitvoltage.toString(),
+                  data.last.opencircuitvoltage.toString(),
                 ),
               ),
               TableCell(
                 child: TableCellContentContainer(
-                  resistorvoltage.toString(),
+                  data.last.resistorvoltage.toString(),
                 ),
               ),
             ],

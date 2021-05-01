@@ -30,11 +30,7 @@ class HomePage extends StatelessWidget {
                 text: "Letzte Messung",
               ),
               LastMeasurementTable(
-                opencircuitvoltage:
-                    state.lastFiveDaysMeasurements.last.opencircuitvoltage,
-                resistorvoltage:
-                    state.lastFiveDaysMeasurements.last.resistorvoltage,
-                createdon: state.lastFiveDaysMeasurements.last.createdon,
+                data: state.lastFiveDaysMeasurements,
               ),
               TextDivider(
                 text: "Leerlaufspannung [V] heute",
