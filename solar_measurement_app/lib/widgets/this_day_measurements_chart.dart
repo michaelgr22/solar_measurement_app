@@ -2,10 +2,10 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
-class LastFiveDaysMeasurementsChart extends StatelessWidget {
+class ThisDayMeasurementsChart extends StatelessWidget {
   final List<SolarMeasurementModel> data;
 
-  LastFiveDaysMeasurementsChart({@required this.data});
+  ThisDayMeasurementsChart({@required this.data});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -13,9 +13,6 @@ class LastFiveDaysMeasurementsChart extends StatelessWidget {
       height: 300.0,
       child: TimeSeriesChart(
         createSeries(),
-        domainAxis: DateTimeAxisSpec(
-          tickProviderSpec: DayTickProviderSpec(increments: [1]),
-        ),
       ),
     );
   }
@@ -23,7 +20,7 @@ class LastFiveDaysMeasurementsChart extends StatelessWidget {
   List<Series<SolarMeasurementModel, DateTime>> createSeries() {
     return [
       Series(
-          id: "FiveDaysMeasurements",
+          id: "ThisDayMeasurements",
           colorFn: (_, __) => MaterialPalette.deepOrange.shadeDefault,
           domainFn: (SolarMeasurementModel model, _) => model.createdon,
           measureFn: (SolarMeasurementModel model, _) =>

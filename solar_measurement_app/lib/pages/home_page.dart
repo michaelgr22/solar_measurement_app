@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
+import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 import 'package:solar_measurement_app/widgets/last_five_days_measurements_chart.dart';
 import 'package:solar_measurement_app/widgets/last_measurement_table.dart';
 import 'package:solar_measurement_app/widgets/last_measurement_text.dart';
+import 'package:solar_measurement_app/widgets/this_day_measurements_chart.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -35,7 +37,12 @@ class HomePage extends StatelessWidget {
                 createdon: state.lastFiveDaysMeasurements.first.createdon,
               ),
               TextDivider(
-                text: "Leerlaufspannung letzte 5 Tage",
+                text: "Leerlaufspannungsverlauf heute",
+              ),
+              ThisDayMeasurementsChart(
+                  data: measurementsThisDay(state.lastFiveDaysMeasurements)),
+              TextDivider(
+                text: "Leerlaufspannungsverlauf letzte 5 Tage",
               ),
               LastFiveDaysMeasurementsChart(
                   data: state.lastFiveDaysMeasurements)
@@ -64,6 +71,22 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<SolarMeasurementModel> measurementsThisDay(
+      List<SolarMeasurementModel> measurements) {
+    DateTime today = DateTime.parse("2021-04-10 12:18:04Z");
+
+    return List.from(
+        measurements.where((element) => element.createdon.isSameDate(today)));
+  }
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
   }
 }
 
