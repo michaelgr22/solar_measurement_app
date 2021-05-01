@@ -29,7 +29,7 @@ order by created_on desc;""";
       result.forEach((row) {
         models.add(parseRowToSolarMeasurementModel(row));
       });
-      return models;
+      return models.reversed.toList();
     } on Exception {
       throw NetworkException();
     }
