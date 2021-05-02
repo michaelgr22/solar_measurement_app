@@ -11,16 +11,15 @@ import 'pages/home_page.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MeasurementsDB measurementsDB = MeasurementsDB();
-    final SolarMeasurementsRemoteDataSoruce remoteDataSoruce =
-        SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
-
     return MaterialApp(
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) {
           return HomePage();
         },
         '/measurements': (BuildContext context) {
+          final MeasurementsDB measurementsDB = MeasurementsDB();
+          final SolarMeasurementsRemoteDataSoruce remoteDataSoruce =
+              SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
           return BlocProvider(
               create: (_) => LatestSolarMeasurementsCubit(
                   SolarMeasurementsRepository(
