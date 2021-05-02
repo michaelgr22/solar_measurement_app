@@ -5,6 +5,7 @@ import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
 import 'package:solar_measurement_app/data/datasources/postgresdb.dart';
 import 'package:solar_measurement_app/data/datasources/solar_measurements_remote_datasource.dart';
 import 'package:solar_measurement_app/data/repositories/solar_measurements_repository.dart';
+import 'package:solar_measurement_app/pages/measurements_page.dart';
 import 'pages/home_page.dart';
 
 class App extends StatelessWidget {
@@ -15,11 +16,19 @@ class App extends StatelessWidget {
         SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
 
     return MaterialApp(
-        home: BlocProvider(
-      create: (_) => LatestSolarMeasurementsCubit(
-          SolarMeasurementsRepository(remoteDataSoruce: remoteDataSoruce))
-        ..getLastFiveDaysMeasurements(),
-      child: HomePage(),
-    ));
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) {
+          return HomePage();
+        },
+        '/measurements': (BuildContext context) {
+          return BlocProvider(
+              create: (_) => LatestSolarMeasurementsCubit(
+                  SolarMeasurementsRepository(
+                      remoteDataSoruce: remoteDataSoruce))
+                ..getLastFiveDaysMeasurements(),
+              child: MeasurementsPage());
+        }
+      },
+    );
   }
 }
