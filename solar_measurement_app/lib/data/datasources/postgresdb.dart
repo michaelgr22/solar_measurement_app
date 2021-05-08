@@ -39,9 +39,9 @@ class PostgresDB {
 class MeasurementsDB extends PostgresDB {
   MeasurementsDB()
       : super(
-            PostgresDBMeasurementsCredentails.ip,
-            PostgresDBMeasurementsCredentails.port,
-            PostgresDBMeasurementsCredentails.database,
-            PostgresDBMeasurementsCredentails.username,
-            PostgresDBMeasurementsCredentails.password);
+            PostgresDBSolarMeasurementsCredentails.ip,
+            PostgresDBSolarMeasurementsCredentails.port,
+            PostgresDBSolarMeasurementsCredentails.database,
+            PostgresDBSolarMeasurementsCredentails.username,
+            PostgresDBSolarMeasurementsCredentails.password);
 }
