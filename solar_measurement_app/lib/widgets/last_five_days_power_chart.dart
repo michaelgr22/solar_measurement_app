@@ -35,12 +35,6 @@ class LastFiveDaysPowerChart extends StatelessWidget {
   }
 
   List<TimeSeriesPower> createSeriesData() {
-    print(data.length);
-    data.forEach((element) {
-      print(
-        'Id: ${element.id}, Id: ${element.resistorvoltage}, Id: ${element.opencircuitvoltage}, Id: ${element.createdon}',
-      );
-    });
     final daysToGenerate =
         data.last.createdon.difference(data.first.createdon).inDays + 1;
     List<TimeSeriesPower> seriesdata = List.generate(
@@ -58,9 +52,6 @@ class LastFiveDaysPowerChart extends StatelessWidget {
           .fold(0.0, (value, element) => value + calculateEnergiemWh(element));
     });
 
-    seriesdata.forEach((element) {
-      print("Day: ${element.day} Power: ${element.power}");
-    });
     return seriesdata;
   }
 

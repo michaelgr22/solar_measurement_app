@@ -15,9 +15,7 @@ class SolarMeasurementsRepository {
     if (await _isRemoteDatabaseAvailable()) {
       final List<SolarMeasurementModel> lastFiveDaysMeasurements =
           await remoteDataSoruce.queryLastFiveDaysMeasurements();
-      lastFiveDaysMeasurements.forEach((model) {
-        localDataSource.insert(model);
-      });
+      localDataSource.insertMany(lastFiveDaysMeasurements);
       return lastFiveDaysMeasurements;
     }
     final List<SolarMeasurementModel> lastFiveDaysMeasurements =

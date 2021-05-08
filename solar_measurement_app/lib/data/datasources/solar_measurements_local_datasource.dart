@@ -42,7 +42,7 @@ class SolarMeasurementsLocalDataSource {
     ''');
   }
 
-  Future<int> insert(SolarMeasurementModel model) async {
+  Future<int> insertOne(SolarMeasurementModel model) async {
     final db = await instance.database;
     final id = await db.insert(
       localDatasourceSolarMeasurementsTable,
@@ -83,5 +83,20 @@ class SolarMeasurementsLocalDataSource {
     final db = await instance.database;
 
     db.close();
+  }
+
+  void insertMany(List<SolarMeasurementModel> models) async {
+    final db = await instance.database;
+
+    Batch batch = db.batch();
+
+    models.forEach((model) async {
+      batch.insert(
+        localDatasourceSolarMeasurementsTable,
+        model.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.ignore,
+      );
+      await batch.commit(noResult: true);
+    });
   }
 }
