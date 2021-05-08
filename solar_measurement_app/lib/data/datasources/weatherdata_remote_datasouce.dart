@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/models/weatherdata_model.dart';
 import '.datasources_credentails.dart';
 
@@ -11,7 +12,7 @@ abstract class WeatherdataRemoteDataSource {
 
 class WeatherdataRemoteDataSourceImpl implements WeatherdataRemoteDataSource {
   final String _appid = WeatherdataApiCredentials.appid;
-  final String _authority = 'api.openweathermap.org';
+  final String _authority = 'api.openweathermap.or';
   final String _unencodedPath = '/data/2.5/onecall';
 
   Future<List<WeatherdataModel>> getWeatherOfNextSevenDays(
@@ -25,9 +26,12 @@ class WeatherdataRemoteDataSourceImpl implements WeatherdataRemoteDataSource {
 
     final Uri url = Uri.https(_authority, _unencodedPath, parameters);
 
-    final response = await http.get(url);
-
-    return _convertResponseToModels(response);
+    try {
+      final response = await http.get(url);
+      return _convertResponseToModels(response);
+    } on Exception {
+      throw NetworkException();
+    }
   }
 
   List<WeatherdataModel> _convertResponseToModels(http.Response response) {
