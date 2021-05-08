@@ -4,7 +4,9 @@ import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 abstract class SolarMeasurementsRemoteDataSoruce {
-  Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements();
+  final database;
+  SolarMeasurementsRemoteDataSoruce({@required this.database});
+  Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements();
 }
 
 class SolarMeasurementsRemoteDataSoruceImpl
@@ -13,7 +15,8 @@ class SolarMeasurementsRemoteDataSoruceImpl
 
   SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
 
-  Future<List<SolarMeasurementModel>> getLastFiveDaysMeasurements() async {
+  Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements() async {
+    //TODO: Rename Query
     final query =
         """SELECT id, cast(resistor_voltage as float), cast(opencircuit_voltage as float), created_on
 FROM

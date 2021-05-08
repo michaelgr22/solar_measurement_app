@@ -19,7 +19,7 @@ void main() {
         SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
     //act
     final solarmeasurmentmodellist =
-        await remoteDataSoruce.getLastFiveDaysMeasurements();
+        await remoteDataSoruce.queryLastFiveDaysMeasurements();
     //assert
     expect(solarmeasurmentmodellist, isA<List<SolarMeasurementModel>>());
   });
@@ -33,7 +33,7 @@ void main() {
     //act
     when(await measurementsDB.connect()).thenThrow(TimeoutException("Test"));
     //assert
-    expect(remoteDataSoruce.getLastFiveDaysMeasurements(),
+    expect(remoteDataSoruce.queryLastFiveDaysMeasurements(),
         throwsA(isA<NetworkException>()));
   });
 }

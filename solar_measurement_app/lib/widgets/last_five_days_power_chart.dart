@@ -35,6 +35,12 @@ class LastFiveDaysPowerChart extends StatelessWidget {
   }
 
   List<TimeSeriesPower> createSeriesData() {
+    print(data.length);
+    data.forEach((element) {
+      print(
+        'Id: ${element.id}, Id: ${element.resistorvoltage}, Id: ${element.opencircuitvoltage}, Id: ${element.createdon}',
+      );
+    });
     final daysToGenerate =
         data.last.createdon.difference(data.first.createdon).inDays + 1;
     List<TimeSeriesPower> seriesdata = List.generate(
