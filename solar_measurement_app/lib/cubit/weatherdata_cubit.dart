@@ -9,15 +9,16 @@ part 'weatherdata_state.dart';
 class WeatherdataCubit extends Cubit<WeatherdataState> {
   final WeatherDataRepository _weatherDataRepository;
 
-  WeatherdataCubit(this._weatherDataRepository) : super(WeatherdataInitial());
+  WeatherdataCubit(this._weatherDataRepository)
+      : super(WeatherdataStateInitial());
 
   Future<void> getWeatherOfNextSevenDays(
       double lat, double lon, String units) async {
     try {
       emit(WeatherdataStateLoading());
-      final lastfivedaysmeasurements = await _weatherDataRepository
+      final weatherOfNextSevenDays = await _weatherDataRepository
           .getWeatherOfNextSevenDays(lat, lon, units);
-      emit(WeatherdataStateLoaded(lastfivedaysmeasurements));
+      emit(WeatherdataStateLoaded(weatherOfNextSevenDays));
     } on NetworkException {
       emit(WeatherdataStateError("Couldn't fetch data. Device online?"));
     }

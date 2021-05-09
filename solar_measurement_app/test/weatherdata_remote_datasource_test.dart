@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:solar_measurement_app/data/datasources/weatherdata_remote_datasouce.dart';
 import 'package:solar_measurement_app/data/models/weatherdata_model.dart';

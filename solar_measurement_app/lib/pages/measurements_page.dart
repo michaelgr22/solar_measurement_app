@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_measurement_app/cubit/latestsolarmeasurements_cubit.dart';
-import 'package:solar_measurement_app/widgets/last_five_days_measurements_chart.dart';
-import 'package:solar_measurement_app/widgets/last_five_days_power_chart.dart';
-import 'package:solar_measurement_app/widgets/last_measurement_table.dart';
-import 'package:solar_measurement_app/widgets/text_divider.dart';
-import 'package:solar_measurement_app/widgets/this_day_measurements_chart.dart';
+import 'package:solar_measurement_app/widgets/measurements_page/last_five_days_measurements_chart.dart';
+import 'package:solar_measurement_app/widgets/measurements_page/last_five_days_power_chart.dart';
+import 'package:solar_measurement_app/widgets/measurements_page/last_measurement_table.dart';
+import 'package:solar_measurement_app/widgets/loading_progress_indicator.dart';
+import 'package:solar_measurement_app/widgets/measurements_page/text_divider.dart';
+import 'package:solar_measurement_app/widgets/measurements_page/this_day_measurements_chart.dart';
 
 class MeasurementsPage extends StatelessWidget {
   @override
@@ -65,15 +66,5 @@ class MeasurementsPage extends StatelessWidget {
                 .getLastFiveDaysMeasurements());
       }),
     );
-  }
-}
-
-class LoadingTableProgressIndicator extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: CircularProgressIndicator(
-      backgroundColor: Colors.orange,
-    ));
   }
 }

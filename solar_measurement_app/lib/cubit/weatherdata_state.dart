@@ -5,15 +5,13 @@ abstract class WeatherdataState {
   const WeatherdataState();
 }
 
-class WeatherdataInitial extends WeatherdataState {}
-
 class WeatherdataStateInitial extends WeatherdataState {
   const WeatherdataStateInitial();
 }
 
 class WeatherdataStateLoaded extends WeatherdataState {
-  final List<WeatherdataModel> lastFiveDaysMeasurements;
-  const WeatherdataStateLoaded(this.lastFiveDaysMeasurements);
+  final List<WeatherdataModel> weatherOfNextSevenDays;
+  const WeatherdataStateLoaded(this.weatherOfNextSevenDays);
 }
 
 class WeatherdataStateLoading extends WeatherdataState {

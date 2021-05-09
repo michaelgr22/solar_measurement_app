@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           ButtonWithIcon(
             icon: Icons.wb_sunny_outlined,
             text: 'Vorhersage',
-            route: '/',
+            route: '/predictions',
           ),
         ],
       ),

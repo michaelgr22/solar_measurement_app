@@ -12,7 +12,7 @@ abstract class WeatherdataRemoteDataSource {
 
 class WeatherdataRemoteDataSourceImpl implements WeatherdataRemoteDataSource {
   final String _appid = WeatherdataApiCredentials.appid;
-  final String _authority = 'api.openweathermap.or';
+  final String _authority = 'api.openweathermap.org';
   final String _unencodedPath = '/data/2.5/onecall';
 
   Future<List<WeatherdataModel>> getWeatherOfNextSevenDays(
