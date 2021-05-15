@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -24,7 +23,7 @@ class SolarMeasurementsLocalDataSource {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 2, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -67,14 +66,17 @@ class SolarMeasurementsLocalDataSource {
     }
   }
 
-  //TODO: Implementd query for last 5 Days measurements
   Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements() async {
     final db = await instance.database;
-
+    String dateMinusXDays = _getDayXDaysOlderThanNow(5).toIso8601String();
+    print("Test");
+    print(dateMinusXDays);
     final orderBy = '${LocalDatasourceSolarMeasurementsTableFields.id} ASC';
+    final where =
+        '${LocalDatasourceSolarMeasurementsTableFields.createdon} > \'$dateMinusXDays\'';
 
-    final result =
-        await db.query(localDatasourceSolarMeasurementsTable, orderBy: orderBy);
+    final result = await db.query(localDatasourceSolarMeasurementsTable,
+        where: where, orderBy: orderBy);
 
     return result.map((json) => SolarMeasurementModel.fromJson(json)).toList();
   }
@@ -97,6 +99,24 @@ class SolarMeasurementsLocalDataSource {
         conflictAlgorithm: ConflictAlgorithm.ignore,
       );
       await batch.commit(noResult: true);
+      print("Done");
     });
+  }
+
+  void deleteRowsOlderThanXDays(int days) async {
+    final db = await instance.database;
+
+    String dateMinusXDays = _getDayXDaysOlderThanNow(days).toIso8601String();
+
+    Batch batch = db.batch();
+    batch.delete(localDatasourceSolarMeasurementsTable,
+        where:
+            '${LocalDatasourceSolarMeasurementsTableFields.createdon} < \'$dateMinusXDays\'');
+    await batch.commit(noResult: true);
+  }
+
+  DateTime _getDayXDaysOlderThanNow(days) {
+    var date = DateTime.now().subtract(Duration(days: days));
+    return DateTime(date.year, date.month, date.day);
   }
 }

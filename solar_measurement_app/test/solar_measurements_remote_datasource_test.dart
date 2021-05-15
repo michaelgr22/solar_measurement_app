@@ -11,7 +11,7 @@ class MockMeasurementsDB extends Mock implements MeasurementsDB {}
 
 void main() {
   test(
-      'should return List of SolarMeasurementModels when getLastWeeksMeasurements is called',
+      'should return List of SolarMeasurementModels when getLastLastFiveDaysMeasurements is called',
       () async {
     //arrange
     final measurementsDB = MeasurementsDB();

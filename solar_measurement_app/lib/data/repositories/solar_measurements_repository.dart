@@ -16,8 +16,10 @@ class SolarMeasurementsRepository {
       final List<SolarMeasurementModel> lastFiveDaysMeasurements =
           await remoteDataSoruce.queryLastFiveDaysMeasurements();
       localDataSource.insertMany(lastFiveDaysMeasurements);
+      localDataSource.deleteRowsOlderThanXDays(10);
       return lastFiveDaysMeasurements;
     }
+    print("Drin");
     final List<SolarMeasurementModel> lastFiveDaysMeasurements =
         await localDataSource.queryLastFiveDaysMeasurements();
     return lastFiveDaysMeasurements;

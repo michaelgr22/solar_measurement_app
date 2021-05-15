@@ -32,7 +32,7 @@ class ThisDayMeasurementsChart extends StatelessWidget {
 
   List<SolarMeasurementModel> measurementsThisDay(
       List<SolarMeasurementModel> measurements) {
-    DateTime today = DateTime.parse("2021-04-10 12:18:04Z"); //TODO: anpassen
+    DateTime today = DateTime.now();
 
     return List.from(
         measurements.where((element) => element.createdon.isSameDate(today)));

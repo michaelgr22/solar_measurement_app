@@ -16,14 +16,14 @@ class SolarMeasurementsRemoteDataSoruceImpl
   SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
 
   Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements() async {
-    //TODO: Rename Query
     final query =
         """SELECT id, cast(resistor_voltage as float), cast(opencircuit_voltage as float), created_on
 FROM
-	solarpanels_2_resistor220_opencircuit
+	solar_measurement_2_220_clean
 WHERE
-	created_on BETWEEN '2021-04-08 00:00:00' AND '2021-04-12 23:59:59'
-order by created_on desc;""";
+	created_on > \'""" +
+            getQueryDateAsString(5) +
+            """\' order by id desc;""";
 
     List<SolarMeasurementModel> models = [];
 
@@ -36,7 +36,7 @@ order by created_on desc;""";
     } on Exception {
       throw NetworkException();
     }
-  } //TODO: correct time
+  }
 
   SolarMeasurementModel parseRowToSolarMeasurementModel(List<dynamic> row) {
     return SolarMeasurementModel(
@@ -52,5 +52,11 @@ order by created_on desc;""";
     List<List<dynamic>> result = await database.query(query);
     await database.close();
     return result;
+  }
+
+  String getQueryDateAsString(int days) {
+    DateTime queryDate = DateTime.now().subtract(Duration(days: 5));
+    return DateTime(queryDate.year, queryDate.month, queryDate.day)
+        .toIso8601String();
   }
 }
