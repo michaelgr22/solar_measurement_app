@@ -23,7 +23,7 @@ class App extends StatelessWidget {
         },
         '/measurements': (BuildContext context) {
           final MeasurementsDB measurementsDB = MeasurementsDB();
-          final SolarMeasurementsRemoteDataSoruce remoteDataSoruce =
+          final SolarMeasurementsRemoteDataSource remoteDataSoruce =
               SolarMeasurementsRemoteDataSoruceImpl(database: measurementsDB);
           final SolarMeasurementsLocalDataSource localDataSource =
               SolarMeasurementsLocalDataSource.instance;

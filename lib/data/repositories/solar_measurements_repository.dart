@@ -5,7 +5,7 @@ import 'package:solar_measurement_app/data/datasources/solar_measurements_remote
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
 class SolarMeasurementsRepository {
-  final SolarMeasurementsRemoteDataSoruce remoteDataSoruce;
+  final SolarMeasurementsRemoteDataSource remoteDataSoruce;
   final SolarMeasurementsLocalDataSource localDataSource;
 
   SolarMeasurementsRepository(
@@ -19,7 +19,6 @@ class SolarMeasurementsRepository {
       localDataSource.deleteRowsOlderThanXDays(10);
       return lastFiveDaysMeasurements;
     }
-    print("Drin");
     final List<SolarMeasurementModel> lastFiveDaysMeasurements =
         await localDataSource.queryLastFiveDaysMeasurements();
     return lastFiveDaysMeasurements;

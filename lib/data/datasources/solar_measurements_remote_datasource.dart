@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:solar_measurement_app/core/error/exceptions.dart';
 import 'package:solar_measurement_app/data/models/solar_measurement_model.dart';
 
-abstract class SolarMeasurementsRemoteDataSoruce {
+abstract class SolarMeasurementsRemoteDataSource {
   final database;
-  SolarMeasurementsRemoteDataSoruce({@required this.database});
+  SolarMeasurementsRemoteDataSource({@required this.database});
   Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements();
 }
 
 class SolarMeasurementsRemoteDataSoruceImpl
-    implements SolarMeasurementsRemoteDataSoruce {
+    implements SolarMeasurementsRemoteDataSource {
   final database;
 
   SolarMeasurementsRemoteDataSoruceImpl({@required this.database});
