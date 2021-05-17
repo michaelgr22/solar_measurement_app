@@ -1,0 +1,4 @@
+#Sat May 15 20:31:15 CEST 2021
+base.0=C\:\\Users\\micha\\git\\solar_measurement\\solar_measurement_app\\solar_measurement_app\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
