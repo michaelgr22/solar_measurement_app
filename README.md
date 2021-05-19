@@ -1,16 +1,7 @@
-# solar_measurement_app
+## Solar Measurement App
+App to track live data of solar panels for
+https://github.com/michaelgr22/measure-voltage-of-solarpanels
 
-A new Flutter project.
+Furthermore, the weather of the next days can be watched.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![enter image description here](https://i.ibb.co/8rmxMFY/screen-Recording-github-21-05-17-20-01-01.gif)
