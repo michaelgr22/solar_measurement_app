@@ -69,7 +69,7 @@ class SolarMeasurementsLocalDataSource {
   Future<List<SolarMeasurementModel>> queryLastFiveDaysMeasurements() async {
     final db = await instance.database;
     String dateMinusXDays = _getDayXDaysOlderThanNow(5).toIso8601String();
-    final orderBy = '${LocalDatasourceSolarMeasurementsTableFields.id} ASC';
+    final orderBy = '${LocalDatasourceSolarMeasurementsTableFields.createdon} ASC';
     final where =
         '${LocalDatasourceSolarMeasurementsTableFields.createdon} > \'$dateMinusXDays\'';
 

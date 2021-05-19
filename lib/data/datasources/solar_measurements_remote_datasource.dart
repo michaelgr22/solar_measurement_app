@@ -23,7 +23,7 @@ FROM
 WHERE
 	created_on > \'""" +
             getQueryDateAsString(5) +
-            """\' order by id desc;""";
+            """\' order by created_on desc;""";
 
     List<SolarMeasurementModel> models = [];
 
